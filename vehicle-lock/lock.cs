@@ -6,81 +6,37 @@ using System;
 public class Lock:Script
 {
 
-    List<Vehicle> locked;
+    List<Vehicle> Vehicles;
 
     public Lock()
     {
 
-        API.onPlayerEnterVehicle += OnPlayerEnterVehicle;
-        API.onPlayerExitVehicle += OnPlayerExitVehicleHandler;
 
     }
 
     [Command("lock")]
     public void lockvehicle(Client sender)
     {
-        if(API.isPlayerInAnyVehicle(sender))
+        foreach (NetHandle c in API.getAllVehicles())
         {
-
-            if(API.getPlayerVehicleSeat(sender)==-1)
+            if (API.getEntityData(sender, "VEHICLES").Contains(c) && API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
             {
-
-                API.sendNotificationToPlayer(sender, "You have locked your vehicle");
-                locked.Add(sender.vehicle);
+                API.setVehicleLocked(c, true);
 
             }
 
         }
-
-
     }
 
     [Command("unlock")]
     public void unlockvehicle(Client sender)
     {
 
-        if(API.isPlayerInAnyVehicle(sender))
+        foreach (NetHandle c in API.getAllVehicles())
         {
-
-            if(API.getPlayerVehicleSeat(sender)==-1 && locked.Contains(sender.vehicle))
+            if (API.getEntityData(sender, "VEHICLES").Contains(c) && API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
             {
-
-                API.sendNotificationToPlayer(sender, "You have unlocked your vehicle");
-                locked.Remove(sender.vehicle);
-
-            }
-
-        }
-
-    }
-
-    private void OnPlayerExitVehicleHandler(Client player, NetHandle vehicle)
-    {
-        int seat=API.getPlayerVehicleSeat(player);
-        foreach(Vehicle c in locked)
-        {
-
-            if(vehicle==c)
-            {
-
-                API.setPlayerIntoVehicle(player, c, seat);
-
-            }
-
-        }
-
-    }
-
-    private void OnPlayerEnterVehicle(Client player, NetHandle vehicle)
-    {
-
-        foreach(Vehicle c in locked)
-        {
-
-            if(vehicle==c)
-            {
-
-                API.warpPlayerOutOfVehicle(player,vehicle);
+                API.setVehicleLocked(c, false);
 
             }
 
