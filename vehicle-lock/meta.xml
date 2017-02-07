@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<meta>
+  <info name="Vehicle Lock" description="Script for locking vehicles" author= "3marproof" version="1.0"/>
+
+  <script src="lock.cs" type="server" lang="csharp" />
+
+</meta>
