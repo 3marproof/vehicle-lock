@@ -6,10 +6,9 @@ currently only works if you are in a vehicle.
 Do /lock to lock your vehicle
 Do /unlock to unlock your vehicle
 
-# Future Plans
+## Doesn't lock yourself inside your vehicle
 
-### Hoping to get rid of the whole be in the vehicle process, and make it so that you actually own the vehicle to be able to lock it or unlock it
-from outside and inside.
+# Future Plans
 
 ### Triggering the car alarm if someone tries to open it.
 
