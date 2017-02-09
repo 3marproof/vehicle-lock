@@ -3,24 +3,17 @@ using GTANetworkShared;
 using System.Collections.Generic;
 using System;
 
-public class Lock:Script
+public class Lock : Script
 {
-
-    List<Vehicle> Vehicles;
-
-    public Lock()
-    {
-
-
-    }
 
     [Command("lock")]
     public void lockvehicle(Client sender)
     {
         foreach (NetHandle c in API.getAllVehicles())
         {
-            if (API.getEntityData(sender, "VEHICLES").Contains(c) && API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
+            if (API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
             {
+                API.consoleOutput("lel");
                 API.setVehicleLocked(c, true);
 
             }
@@ -34,7 +27,7 @@ public class Lock:Script
 
         foreach (NetHandle c in API.getAllVehicles())
         {
-            if (API.getEntityData(sender, "VEHICLES").Contains(c) && API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
+            if (API.getPlayersInRadiusOfPosition(2f, API.getEntityPosition(c)).Contains(sender))
             {
                 API.setVehicleLocked(c, false);
 
@@ -43,5 +36,4 @@ public class Lock:Script
         }
 
     }
-
 }
